@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/qiuyuhome/gin-demo/global"
+	"github.com/qiuyuhome/gin-demo/internal/model"
 	"github.com/qiuyuhome/gin-demo/internal/routers"
 	"github.com/qiuyuhome/gin-demo/pkg/setting"
 	"log"
@@ -59,4 +60,13 @@ func main() {
 	}
 
 	s.ListenAndServe()
+}
+
+func setupDBEngine() error {
+	var err error
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSettring)
+	if err != nil {
+		return err
+	}
+	return nil
 }
